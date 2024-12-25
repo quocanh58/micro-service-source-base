@@ -1,0 +1,94 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.4.0'
+	id 'io.spring.dependency-management' version '1.1.6'
+}
+
+group = 'com.company.gojob'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(21)
+	}
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+
+}
+
+repositories {
+	mavenCentral()
+	// add common service
+	flatDir {
+		dirs '../common-service/build/libs'
+	}
+}
+
+ext {
+	set('springCloudVersion', "2024.0.0")
+}
+
+dependencies {
+	// Spring
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	compileOnly 'org.projectlombok:lombok'
+	runtimeOnly 'com.mysql:mysql-connector-j'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework.security:spring-security-test'
+
+	// Swagger
+	implementation group: 'org.springdoc', name: 'springdoc-openapi-starter-webmvc-ui', version: '2.7.0'
+	implementation group: 'org.springdoc', name: 'springdoc-openapi-ui', version: '1.8.0'
+
+	// JSON
+	implementation group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.17.2'
+	implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.17.2'
+
+	// Mapper
+	implementation 'org.mapstruct:mapstruct:1.5.5.Final'
+	implementation group: 'org.modelmapper', name: 'modelmapper', version: '3.1.1'
+	annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.5.Final'
+
+	// JWT
+	implementation group: 'io.jsonwebtoken', name: 'jjwt-api', version: '0.11.5'
+	runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-impl', version: '0.11.5'
+	runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-jackson', version: '0.11.5'
+
+	// Testing
+//	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+//	testImplementation 'org.springframework.security:spring-security-test'
+//	testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.11.3'
+//	testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.2'
+//	testImplementation group: 'org.mockito', name: 'mockito-junit-jupiter', version: '5.14.2'
+//	testImplementation group: 'org.mockito', name: 'mockito-inline', version: '5.2.0'
+
+	testImplementation group: 'org.mockito', name: 'mockito-core', version: '5.14.2'
+	testImplementation group: 'org.mockito', name: 'mockito-all', version: '1.10.19'
+
+
+	// add common service
+	implementation name: 'common-service-0.0.1-SNAPSHOT-plain'
+}
+
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+	}
+}
+
+test {
+	jvmArgs += '-javaagent:' + configurations.testRuntimeClasspath.find { it.name.contains("mockito-inline") }
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
