@@ -416,10 +416,11 @@ Truy cập `gateway-service`, thêm demo-service vào `application.yml` tại `c
       private double taxPrice;
   }
   ```
-- DTO cho request/response được đặt trong thư mục payload tương ứng.
-- Tên DTO kết thúc bằng `DTO`.  
-  **Ví dụ:** `CreateAccountRequestDTO`, `CategoryResponseDTO`
-- Tên Entity (Model) dạng PascalCase, có hậu tố Model.  
+- DTO cho `Request`/`Response` được đặt trong thư mục payload tương ứng.
+- Tên DTO phải đặt theo quy tắc `Action` + `Noun` + hậu tố.  
+- Tên DTO kết thúc bằng hậu tố `Request` hoặc `Response`.  
+  **Ví dụ:** `CreateAccountRequest`, `CategoryResponse`
+- Tên Entity (Model) dạng `PascalCase`, có hậu tố `Model`.  
   **Ví dụ:** `UserModel`, `ProductModel`.
 - **Tuyệt đối không return về model, yêu cầu phải convert sang DTO để tránh chỉnh sửa response trên model.**
 - (Không bắt buộc) constructor convert từ Model sang DTO (đối với DTO response):
