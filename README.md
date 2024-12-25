@@ -1,11 +1,11 @@
 # Tài liệu hướng dẫn dự án Cloud HRM
 
-| **Dự Án**              | Cloud HRM       | 
-|------------------------|-----------------|
-| **Người tạo**          | Trần Hữu Khương | 
-| **Version**            | 2.6             | 
-| **Ngày tạo**           | 18/12/2024      | 
-| **Chỉnh sửa lần cuối** | 21/12/2024      | 
+| **Dự Án**              |                       | 
+|------------------------|-----------------------|
+| **Người tạo**          | Trần Thiện Quốc Anh   | 
+| **Version**            | 2.6                   | 
+| **Ngày tạo**           | 18/12/2024            | 
+| **Chỉnh sửa lần cuối** | 25/12/2024            | 
 
 > - Nếu là lần đầu run code, cần thực hiện bước [build JAR common service](#build-jar-common)
 
